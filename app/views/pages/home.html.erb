@@ -9,11 +9,13 @@
   <div class="definitions_container">
     <h2 id="defined_word"><%= @word %></h2>
     <ul id="definitions">
-    <% @definitions.each do |item| %>
-      <li>
-        <%= item %>
-      </li>
-    <% end %>
+      <% if @definitions %>
+        <% @definitions.each do |item| %>
+        <li>
+          <%= item %>
+        </li>
+        <% end %>
+      <% end %>
     </ul>
   </div>
 <% end %>
