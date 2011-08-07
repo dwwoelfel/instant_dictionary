@@ -1,0 +1,19 @@
+<h1>Instant Dictionary</h1>
+<p>Enter a word to get the definiton</p>
+
+<%= form_tag home_path, :id => :search_form, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :word %>
+    <%= submit_tag "Get definitions" %>
+  </p>
+  <div class="definitions_container">
+    <h2 id="defined_word"><%= @word %></h2>
+    <ul id="definitions">
+    <% @definitions.each do |item| %>
+      <li>
+        <%= item %>
+      </li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
