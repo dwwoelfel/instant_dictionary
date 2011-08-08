@@ -1,5 +1,9 @@
 class WordnikController < ApplicationController
 
+  # Wordnik documentation available here: http://developer.wordnik.com/docs
+  # We didn't use the provided Ruby gem because one of the dependencies
+  # would not install on our development system.
+
   require 'net/http'
   require 'json'
   
@@ -12,7 +16,11 @@ class WordnikController < ApplicationController
   end
 
   def search
+    # returns a json array of terms with same beginning
+
     render :json => get_related(params["term"])
+    # we use "term" because it is the parameter
+    # sent by jQuery's autocomplete function
   end
 
   def get_definitions(word)
@@ -20,11 +28,7 @@ class WordnikController < ApplicationController
     
     definitions = []
 
-    logger.info word
-    logger.info json_obj
-
     json_obj.each do |item|
-      logger.info item
       definitions << item["text"]
     end
       
@@ -47,15 +51,13 @@ class WordnikController < ApplicationController
     base = "http://api.wordnik.com/v4"
     if type == :definitions
       url = "#{base}/word.json/#{word}/definitions?api_key=#{@api_key}"
+      # will return a json object which includes the definition
     elsif type == :search
       url = "#{base}/words.json/search?query=#{word}&api_key=#{@api_key}"
+      # will return a json object with a default of 10 words with same beginning
     end
 
-    logger.info url
-
     response = Net::HTTP.get_response(URI.parse(url))
-
-    logger.info response
 
     return JSON.parse(response.body)
   end
