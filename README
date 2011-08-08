@@ -1,3 +1,5 @@
 Type in a word to get the definition.
 
 Offers word suggestions in a drop-down, uses AJAX to display the definition.
+
+Definitions and related words are obtained from the Wordnik API available here: http://developer.wordnik.com/
